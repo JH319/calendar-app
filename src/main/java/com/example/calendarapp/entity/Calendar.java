@@ -16,9 +16,11 @@ public class Calendar extends BaseEntity{
     private Long id;
     @Column(length = 50, nullable = false)
     private String title;
-    @Column(unique = true, nullable = false)
+    @Column(length = 50, nullable = false)
     private String content;
+    @Column(length = 50, nullable = false)
     private String name;
+    @Column(length = 20, nullable = false)
     private String password;
 
 
