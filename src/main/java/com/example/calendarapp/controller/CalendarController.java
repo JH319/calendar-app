@@ -3,7 +3,6 @@ package com.example.calendarapp.controller;
 import com.example.calendarapp.dto.*;
 import com.example.calendarapp.service.CalendarService;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ResolvedPointcutDefinition;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +46,14 @@ public class CalendarController {
 
         UpdateCalendarResponse response = calendarService.updateCalendar(Id, request);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    // 일정 삭제
+    @DeleteMapping("/calendars/{Id}")
+    public ResponseEntity<Void> deleteCalendarApi(
+            @PathVariable Long Id,
+            @RequestBody DeleteCalendarRequest request) {
+        calendarService.delete(Id, request);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

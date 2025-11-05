@@ -16,7 +16,6 @@ import java.util.List;
 public class CalendarService {
     /* ----- 속성 ----- */
     private final CalendarRepository calendarRepository;
-    private final HierarchicalBeanFactory hierarchicalBeanFactory;
 
     /* ----- 생성자 ----- */
 
@@ -113,4 +112,18 @@ public class CalendarService {
         );
     }
 
+    @Transactional
+    public void delete(Long Id, DeleteCalendarRequest request) {
+        // 일정 찾기
+        Calendar calendar = calendarRepository.findById(Id).orElseThrow(
+                () -> new IllegalStateException("존재하지 않는 일정입니다.")
+        );
+
+        // 비밀번호 인증
+        if(!calendar.getPassword().equals(request.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+
+        calendarRepository.delete(calendar);
+    }
 }
