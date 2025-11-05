@@ -1,10 +1,9 @@
 package com.example.calendarapp.controller;
 
-import com.example.calendarapp.dto.CreateCalendarRequest;
-import com.example.calendarapp.dto.CreateCalendarResponse;
-import com.example.calendarapp.dto.GetCalendarResponse;
+import com.example.calendarapp.dto.*;
 import com.example.calendarapp.service.CalendarService;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ResolvedPointcutDefinition;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +39,13 @@ public class CalendarController {
         return ResponseEntity.status(HttpStatus.OK).body(calendarService.findOne(Id));
     }
 
+    // 일정 수정
+    @PutMapping("/calendars/{Id}")
+    public ResponseEntity<UpdateCalendarResponse> updateCalendarApi(
+            @PathVariable Long Id,
+            @RequestBody UpdateCalendarRequest request) {
 
-
+        UpdateCalendarResponse response = calendarService.updateCalendar(Id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 }

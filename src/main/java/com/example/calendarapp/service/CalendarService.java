@@ -1,9 +1,6 @@
 package com.example.calendarapp.service;
 
-import com.example.calendarapp.dto.CreateCalendarRequest;
-import com.example.calendarapp.dto.CreateCalendarResponse;
-import com.example.calendarapp.dto.GetCalendarRequest;
-import com.example.calendarapp.dto.GetCalendarResponse;
+import com.example.calendarapp.dto.*;
 import com.example.calendarapp.entity.Calendar;
 import com.example.calendarapp.repository.CalendarRepository;
 import lombok.RequiredArgsConstructor;
@@ -74,11 +71,11 @@ public class CalendarService {
     }
 
 
-        // 선택 일정 조회
+    // 선택 일정 조회
     @Transactional(readOnly = true)
     public GetCalendarResponse findOne(Long Id) {
         Calendar calendar = calendarRepository.findById(Id).orElseThrow(
-                () -> new IllegalStateException("존재하지 않는 사용자입니다.")
+                () -> new IllegalStateException("존재하지 않는 일정입니다.")
         );
         return new GetCalendarResponse(
                 calendar.getId(),
@@ -90,5 +87,30 @@ public class CalendarService {
         );
     }
 
+
+    // 일정 수정
+    @Transactional
+    public UpdateCalendarResponse updateCalendar(Long Id, UpdateCalendarRequest request) {
+        // 일정 찾기
+        Calendar calendar = calendarRepository.findById(Id).orElseThrow(
+                () -> new IllegalStateException("존재하지 않는 일정입니다.")
+        );
+
+        // 비밀번호 인증
+        if(!calendar.getPassword().equals(request.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+
+        calendar.update(request.getTitle(),request.getName(),request.getPassword());
+
+        return new UpdateCalendarResponse(
+                calendar.getId(),
+                calendar.getTitle(),
+                calendar.getContent(),
+                calendar.getName(),
+                calendar.getCreatedAt(),
+                calendar.getModifiedAt()
+        );
+    }
 
 }
