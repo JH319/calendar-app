@@ -23,6 +23,4 @@ public class GetCalendarResponse {
         this.createAt = createAt;
         this.modifiedAt = modifiedAt;
     }
-
-    /* ----- 기능 ----- */
 }

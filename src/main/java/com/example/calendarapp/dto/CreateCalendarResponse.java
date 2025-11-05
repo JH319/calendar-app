@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class CreateCalendarResponse {
+    /* ----- 속성 ----- */
     private final Long id;
     private final String title;
     private final String content;
@@ -13,7 +14,7 @@ public class CreateCalendarResponse {
     private final LocalDateTime createAt;
     private final LocalDateTime modifiedAt;
 
-
+    /* ----- 생성자 ----- */
     public CreateCalendarResponse(Long id, String title, String content, String name, LocalDateTime createAt, LocalDateTime modifiedAt) {
         this.id = id;
         this.title = title;
