@@ -112,6 +112,7 @@ public class CalendarService {
         );
     }
 
+    // 일정 삭제
     @Transactional
     public void delete(Long Id, DeleteCalendarRequest request) {
         // 일정 찾기
